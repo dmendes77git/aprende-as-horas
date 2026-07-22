@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Aprende as Estações do Ano - Aprende Brincando!</title>
+  <meta name="description" content="Jogo interativo para aprender as 4 Estações do Ano em Português Europeu com imagens, clima, meses e quizes!">
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600;700&family=Outfit:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body class="theme-am">
+
+  <!-- Shared Top Navigation Bar -->
+  <header class="top-nav-bar">
+    <div class="nav-container">
+      <a href="index.html" class="nav-brand">
+        <span class="nav-icon">🎨</span>
+        <span class="nav-title">Aprende Brincando!</span>
+      </a>
+
+      <nav class="nav-links">
+        <a href="index.html" class="nav-link">🏠 Início</a>
+        <a href="horas.html" class="nav-link">⏰ Aprende as Horas</a>
+        <a href="dias.html" class="nav-link">📅 Dias da Semana</a>
+        <a href="meses.html" class="nav-link">🗓️ Os Meses</a>
+        <a href="estacoes.html" class="nav-link active">🍂 Estações do Ano</a>
+      </nav>
+    </div>
+  </header>
+
+  <canvas id="fireworksCanvas"></canvas>
+
+  <div class="app-container">
+    
+    <header class="app-header">
+      <div class="brand">
+        <span class="clock-icon">🍂</span>
+        <h1>Aprende as Estações do Ano!</h1>
+      </div>
+
+      <div class="header-controls">
+        <div class="score-card">
+          <div class="score-item">
+            <span class="score-label">Pontos</span>
+            <span id="scoreValue" class="score-number">0</span>
+          </div>
+          <div class="score-divider"></div>
+          <div class="score-item">
+            <span class="score-label">Sequência</span>
+            <span id="streakValue" class="streak-number">🔥 0</span>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <main class="main-layout">
+      
+      <!-- LEFT PANEL: Interactive Seasons Cards -->
+      <section class="glass-card">
+        <h2 class="section-title">🍂 As 4 Estações do Ano</h2>
+        <p class="section-desc">Clica em qualquer estação para ouvir a pronúncia e ver as suas características!</p>
+
+        <div class="seasons-grid" id="seasonsGrid">
+          <!-- Populated by JS -->
+        </div>
+      </section>
+
+      <!-- RIGHT PANEL: Challenges & Quiz -->
+      <section class="controls-panel glass-card">
+        <div class="challenge-box">
+          <div class="challenge-header">
+            <h3>🎯 Desafio das Estações</h3>
+          </div>
+          <p id="estacoesPrompt" class="challenge-text">
+            Em que estação do ano faz mais calor e vamos à praia? ☀️🏖️
+          </p>
+        </div>
+
+        <div id="estacoesOptions" class="quiz-grid">
+          <!-- Populated by JS -->
+        </div>
+
+        <div id="estacoesFeedback" class="feedback-banner"></div>
+
+        <button id="nextEstacoesBtn" class="btn-primary width-full">
+          Próximo Desafio ➔
+        </button>
+      </section>
+
+    </main>
+
+    <footer class="app-footer">
+      <p>Aprende Brincando! • Aprende as Estações do Ano 🎓🍂</p>
+    </footer>
+
+  </div>
+
+  <script src="js/fireworks.js"></script>
+  <script src="js/audio.js"></script>
+  <script src="js/estacoes.js"></script>
+</body>
+</html>
