@@ -5,8 +5,7 @@
 document.addEventListener('DOMContentLoaded', () => {
   const fireworks = new FireworksEngine('fireworksCanvas');
   const audio = new AudioEngine();
-  const clockCanvas = document.getElementById('clockCanvas');
-  const clock = new ClockEngine(clockCanvas);
+  const clock = new InteractiveClock('clockCanvas');
 
   // Question Banks
   const DIAS_QUESTIONS = [
