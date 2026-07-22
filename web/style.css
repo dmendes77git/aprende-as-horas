@@ -2,7 +2,7 @@
    CSS Design System - Aprende Brincando (Educational Suite)
    ========================================================================== */
 
-/* Website Main Menu Bar (Glass Card Menu - Exact Image Design) */
+/* Website Main Menu Bar (White Theme Glass Card Menu) */
 .portal-top-bar {
   display: flex;
   flex-direction: column;
@@ -12,11 +12,9 @@
   padding: 20px 24px;
   width: 100%;
   border-radius: 20px;
-  background: rgba(30, 41, 59, 0.7);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
-  border: 1px solid rgba(255, 255, 255, 0.12);
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  box-shadow: 0 10px 30px -5px rgba(0, 0, 0, 0.06), 0 4px 12px -2px rgba(0, 0, 0, 0.03);
   margin-bottom: 24px;
 }
 
@@ -32,7 +30,7 @@
   font-family: 'Fredoka', sans-serif;
   font-size: 1.6rem;
   font-weight: 700;
-  color: #f59e0b;
+  color: #d97706;
 }
 
 .portal-top-bar .nav-links {
@@ -50,7 +48,7 @@
   align-items: center;
   justify-content: center;
   gap: 4px;
-  color: #cbd5e1;
+  color: #475569;
   text-decoration: none;
   font-family: 'Outfit', sans-serif;
   font-weight: 600;
@@ -68,16 +66,17 @@
 }
 
 .portal-top-bar .nav-link:hover {
-  color: #ffffff;
-  background: rgba(255, 255, 255, 0.1);
+  color: #0f172a;
+  background: #f1f5f9;
   transform: translateY(-2px);
 }
 
 .portal-top-bar .nav-link.active {
-  color: #ffffff;
-  background: rgba(255, 255, 255, 0.18);
-  border-bottom: 3px solid #f59e0b;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  color: #0f172a;
+  background: #f8fafc;
+  border: 1px solid #cbd5e1;
+  border-bottom: 3px solid #d97706;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
 }
 
 .top-nav-bar {
@@ -167,31 +166,31 @@
 }
 
 :root {
-  /* Core Color Palette (AM - Morning Theme) */
-  --bg-gradient-am: linear-gradient(135deg, #0f172a 0%, #1e293b 35%, #1e3a8a 100%);
-  --accent-am: #3b82f6;
-  --accent-am-glow: rgba(59, 130, 246, 0.4);
+  /* Core Color Palette (White Theme AM & PM) */
+  --bg-gradient-am: #ffffff;
+  --accent-am: #2563eb;
+  --accent-am-glow: rgba(37, 99, 235, 0.2);
   --badge-am-bg: linear-gradient(135deg, #2563eb, #1d4ed8);
 
-  /* PM - Afternoon/Evening Theme Tokens */
-  --bg-gradient-pm: linear-gradient(135deg, #1c1917 0%, #451a03 40%, #7c2d12 100%);
-  --accent-pm: #f97316;
-  --accent-pm-glow: rgba(249, 115, 22, 0.4);
+  /* PM Theme Tokens */
+  --bg-gradient-pm: #f8fafc;
+  --accent-pm: #ea580c;
+  --accent-pm-glow: rgba(234, 88, 12, 0.2);
   --badge-pm-bg: linear-gradient(135deg, #ea580c, #c2410c);
 
-  /* Glassmorphism & UI Surfaces */
-  --glass-bg: rgba(255, 255, 255, 0.07);
-  --glass-border: rgba(255, 255, 255, 0.15);
-  --glass-shadow: 0 20px 40px rgba(0, 0, 0, 0.35);
+  /* Surfaces & Glassmorphism Cards */
+  --glass-bg: #ffffff;
+  --glass-border: #e2e8f0;
+  --glass-shadow: 0 10px 30px -5px rgba(0, 0, 0, 0.06), 0 4px 12px -2px rgba(0, 0, 0, 0.03);
 
   /* Text & Functional Colors */
-  --text-primary: #f8fafc;
-  --text-secondary: #94a3b8;
-  --color-hour: #ef4444;    /* Hour Hand Red */
-  --color-minute: #3b82f6;  /* Minute Hand Blue */
-  --color-success: #22c55e;
-  --color-error: #f43f5e;
-  --color-warning: #eab308;
+  --text-primary: #0f172a;
+  --text-secondary: #475569;
+  --color-hour: #dc2626;    /* Hour Hand Red */
+  --color-minute: #2563eb;  /* Minute Hand Blue */
+  --color-success: #16a34a;
+  --color-error: #e11d48;
+  --color-warning: #d97706;
 
   /* Typography */
   --font-heading: 'Fredoka', cursive, sans-serif;
@@ -212,20 +211,22 @@
 
 body {
   font-family: var(--font-body);
-  background: var(--bg-gradient-am);
+  background-color: #ffffff;
+  background-image: radial-gradient(#e2e8f0 1px, transparent 1px);
+  background-size: 24px 24px;
   color: var(--text-primary);
   min-height: 100vh;
   display: flex;
   justify-content: center;
   align-items: center;
   padding: 20px;
-  transition: background 0.8s ease;
+  transition: background 0.5s ease;
   overflow-x: hidden;
   position: relative;
 }
 
 body.theme-pm {
-  background: var(--bg-gradient-pm);
+  background-color: #f8fafc;
 }
 
 /* Fullscreen Celebration Canvas */
@@ -285,19 +286,17 @@ body.theme-pm {
   font-family: var(--font-heading);
   font-size: 1.9rem;
   font-weight: 700;
-  background: linear-gradient(135deg, #ffffff, #cbd5e1);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
+  color: #0f172a;
 }
 
 /* Mode Navigation Tabs */
 .game-modes {
   display: flex;
   align-items: center;
-  background: rgba(0, 0, 0, 0.25);
+  background: #f1f5f9;
   padding: 4px;
   border-radius: 999px;
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  border: 1px solid #e2e8f0;
   height: 52px;
   box-sizing: border-box;
 }
@@ -324,22 +323,23 @@ body.theme-pm {
 }
 
 .mode-tab.active {
-  background: rgba(255, 255, 255, 0.18);
-  color: #ffffff;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  background: #ffffff;
+  color: #2563eb;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
 }
 
 /* Score Card Component */
 .score-card {
   display: flex;
   align-items: center;
-  background: rgba(0, 0, 0, 0.25);
-  border: 1px solid rgba(255, 255, 255, 0.12);
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
   padding: 4px 18px;
   border-radius: 999px;
   gap: 16px;
   height: 52px;
   box-sizing: border-box;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
 }
 
 .score-item {
@@ -878,13 +878,14 @@ body.theme-pm .digital-clock {
   max-width: 680px;
   max-height: 85vh;
   overflow-y: auto;
-  background: rgba(15, 23, 42, 0.92);
-  border: 1px solid rgba(255, 255, 255, 0.2);
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
   border-radius: var(--radius-lg);
   padding: 28px;
   display: flex;
   flex-direction: column;
   gap: 16px;
+  box-shadow: 0 20px 40px -10px rgba(0, 0, 0, 0.15);
 }
 
 .modal-header {
@@ -896,7 +897,7 @@ body.theme-pm .digital-clock {
 .modal-header h2 {
   font-family: var(--font-heading);
   font-size: 1.7rem;
-  color: #fb923c;
+  color: #ea580c;
 }
 
 .btn-close {
@@ -910,7 +911,7 @@ body.theme-pm .digital-clock {
 }
 
 .btn-close:hover {
-  color: #ffffff;
+  color: #0f172a;
 }
 
 .modal-subtitle {
@@ -959,7 +960,7 @@ body.theme-pm .digital-clock {
   display: flex;
   align-items: center;
   justify-content: center;
-  background: rgba(0, 0, 0, 0.3);
+  background: #f1f5f9;
   border-radius: var(--radius-sm);
   flex-shrink: 0;
 }
@@ -973,7 +974,7 @@ body.theme-pm .digital-clock {
 .badge-title {
   font-family: var(--font-heading);
   font-size: 1.05rem;
-  color: #ffffff;
+  color: #0f172a;
 }
 
 .badge-desc {
@@ -1002,9 +1003,7 @@ body.theme-pm .digital-clock {
   font-family: var(--font-heading);
   font-size: 2.2rem;
   margin-bottom: 10px;
-  background: linear-gradient(135deg, #ffffff, #cbd5e1);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
+  color: #0f172a;
 }
 
 .portal-hero p {
@@ -1050,7 +1049,8 @@ body.theme-pm .digital-clock {
 
 .module-card:hover {
   transform: translateY(-4px);
-  border-color: rgba(255, 255, 255, 0.3);
+  border-color: #cbd5e1;
+  box-shadow: 0 16px 32px -5px rgba(0, 0, 0, 0.08);
 }
 
 .module-header {
@@ -1075,27 +1075,27 @@ body.theme-pm .digital-clock {
 }
 
 .status-por-iniciar {
-  background: rgba(244, 63, 94, 0.2);
-  color: #fda4af;
-  border: 1px solid #f43f5e;
+  background: #ffe4e6;
+  color: #e11d48;
+  border: 1px solid #fda4af;
 }
 
 .status-em-curso {
-  background: rgba(234, 179, 8, 0.2);
-  color: #fde047;
-  border: 1px solid #eab308;
+  background: #fef9c3;
+  color: #ca8a04;
+  border: 1px solid #fde047;
 }
 
 .status-completa {
-  background: rgba(34, 197, 94, 0.2);
-  color: #4ade80;
-  border: 1px solid #22c55e;
+  background: #dcfce7;
+  color: #16a34a;
+  border: 1px solid #86efac;
 }
 
 .module-title {
   font-family: var(--font-heading);
   font-size: 1.45rem;
-  color: #ffffff;
+  color: #0f172a;
   margin-bottom: 8px;
 }
 
