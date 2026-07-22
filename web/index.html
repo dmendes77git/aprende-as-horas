@@ -16,9 +16,27 @@
 </head>
 <body class="theme-am">
 
-  <div class="app-container portal-container portal-centered">
+  <!-- Shared Top Navigation Bar -->
+  <header class="top-nav-bar">
+    <div class="nav-container">
+      <a href="index.html" class="nav-brand">
+        <span class="nav-icon">🎨</span>
+        <span class="nav-title">Aprende Brincando!</span>
+      </a>
+
+      <nav class="nav-links">
+        <a href="index.html" class="nav-link active">🏠 Início</a>
+        <a href="horas.html" class="nav-link">⏰ Aprende as Horas</a>
+        <a href="dias.html" class="nav-link">📅 Dias da Semana</a>
+        <a href="meses.html" class="nav-link">🗓️ Os Meses</a>
+        <a href="estacoes.html" class="nav-link">🍂 Estações do Ano</a>
+      </nav>
+    </div>
+  </header>
+
+  <div class="app-container portal-container">
     
-    <!-- 1. Hero Header Banner -->
+    <!-- Hero Banner -->
     <section class="portal-hero glass-card">
       <div class="hero-content">
         <h1>🚀 Bem-vindo ao Aprende Brincando!</h1>
@@ -26,17 +44,8 @@
       </div>
     </section>
 
-    <!-- 2. Navigation Bar (Directly below "Bem-vindo ao Aprende brincando") -->
-    <nav class="portal-nav-bar glass-card">
-      <a href="index.html" class="nav-link active">🏠 Início</a>
-      <a href="horas.html" class="nav-link">⏰ Aprende as Horas</a>
-      <a href="dias.html" class="nav-link">📅 Dias da Semana</a>
-      <a href="meses.html" class="nav-link">🗓️ Os Meses</a>
-      <a href="estacoes.html" class="nav-link">🍂 Estações do Ano</a>
-    </nav>
-
-    <!-- 3. Single-Column Center-Aligned Cards Grid -->
-    <main class="portal-single-column">
+    <!-- Main Module Cards Grid -->
+    <main class="portal-grid">
       
       <!-- Module 1: Aprende as Horas -->
       <article class="module-card glass-card">
