@@ -2,32 +2,82 @@
    CSS Design System - Aprende Brincando (Educational Suite)
    ========================================================================== */
 
-/* Shared Portal Navigation Bar (Glass Card Container - Left-Aligned Single Line) */
+/* Website Main Menu Bar (Glass Card Menu - Exact Image Design) */
 .portal-top-bar {
   display: flex;
-  justify-content: flex-start;
+  flex-direction: column;
   align-items: center;
-  padding: 10px 20px;
+  justify-content: center;
+  gap: 14px;
+  padding: 20px 24px;
   width: 100%;
-  border-radius: var(--radius-lg);
-  gap: 20px;
-  flex-wrap: nowrap;
-  white-space: nowrap;
-  overflow-x: auto;
+  border-radius: 20px;
+  background: rgba(30, 41, 59, 0.7);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+  margin-bottom: 24px;
 }
 
 .portal-top-bar .nav-brand {
-  flex-shrink: 0;
-  margin-right: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  text-decoration: none;
+}
+
+.portal-top-bar .nav-brand .nav-title {
+  font-family: 'Fredoka', sans-serif;
+  font-size: 1.6rem;
+  font-weight: 700;
+  color: #f59e0b;
 }
 
 .portal-top-bar .nav-links {
   display: flex;
   align-items: center;
-  gap: 8px;
+  justify-content: center;
+  gap: 16px;
   flex-wrap: nowrap;
   white-space: nowrap;
+}
+
+.portal-top-bar .nav-link {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  color: #cbd5e1;
+  text-decoration: none;
+  font-family: 'Outfit', sans-serif;
+  font-weight: 600;
+  font-size: 0.82rem;
+  padding: 8px 16px;
+  border-radius: 12px;
+  transition: all 0.2s ease;
+  white-space: nowrap;
   flex-shrink: 0;
+  border-bottom: 3px solid transparent;
+}
+
+.portal-top-bar .nav-link .link-icon {
+  font-size: 1.5rem;
+}
+
+.portal-top-bar .nav-link:hover {
+  color: #ffffff;
+  background: rgba(255, 255, 255, 0.1);
+  transform: translateY(-2px);
+}
+
+.portal-top-bar .nav-link.active {
+  color: #ffffff;
+  background: rgba(255, 255, 255, 0.18);
+  border-bottom: 3px solid #f59e0b;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
 }
 
 .top-nav-bar {
