@@ -157,6 +157,13 @@ document.addEventListener('DOMContentLoaded', () => {
         audio.playSuccessSound();
         fireworks.triggerFireworks();
         showFeedback(feedbackMessage, `✨ Muito bem! Acertaste e ganhaste +5 pontos!`, 'success');
+
+        checkAchievements({
+          isCorrect: true,
+          hour: userHour,
+          minute: userMinute,
+          isPm: clock.isPm
+        });
       } else {
         showFeedback(feedbackMessage, `🌟 Excelente! Já acertaste esta pergunta!`, 'success');
       }
@@ -165,7 +172,18 @@ document.addEventListener('DOMContentLoaded', () => {
       updateScoreboard();
       audio.playErrorSound();
       const targetStr = `${String(targetHour).padStart(2, '0')}:${String(targetMinute).padStart(2, '0')}`;
-      showFeedback(feedbackMessage, `❌ Tenta outra vez! Procuras a hora ${targetStr}.`, 'error');
+      const targetH12 = (targetHour % 12) === 0 ? 12 : (targetHour % 12);
+      const targetMinNum = targetMinute === 0 ? 12 : (targetMinute / 5);
+      const minLabel = targetMinute === 0 ? 'em ponto' : (targetMinute === 30 ? '30 min, "e meia"' : `${targetMinute} min`);
+      const periodMode = targetHour >= 12 ? 'PM (Tarde/Noite)' : 'AM (Manhã)';
+
+      const explanation = `❌ <strong>Ainda não está certo, mas vais conseguir!</strong><br><br>` +
+        `<strong>💡 Passo a passo para acertar nas ${targetStr}:</strong><br><br>` +
+        `1️⃣ <strong>Ponteiro VERMELHO (Horas):</strong> Coloca no número <strong>${targetH12}</strong>.<br>` +
+        `2️⃣ <strong>Ponteiro AZUL (Minutos):</strong> Coloca no número <strong>${targetMinNum}</strong> (${minLabel}).<br>` +
+        `3️⃣ <strong>Botão AM/PM:</strong> Seleciona o modo <strong>${periodMode}</strong>.`;
+
+      showFeedback(feedbackMessage, explanation, 'error');
     }
   });
 
@@ -331,39 +349,6 @@ document.addEventListener('DOMContentLoaded', () => {
     checkAchievements({ isSpeakClick: true });
   });
 
-  // Practice Mode Check
-  checkAnswerBtn.addEventListener('click', () => {
-    const userHour = clock.hour;
-    const userMinute = clock.minute;
-
-    if (userHour === targetHour && userMinute === targetMinute) {
-      if (!alreadyScored) {
-        score += 5;
-        streak += 1;
-        alreadyScored = true;
-        updateScoreboard();
-        audio.playSuccessSound();
-        fireworks.triggerFireworks();
-        showFeedback(feedbackMessage, `✨ Muito bem! Acertaste e ganhaste +5 pontos!`, 'success');
-
-        checkAchievements({
-          isCorrect: true,
-          hour: userHour,
-          minute: userMinute,
-          isPm: clock.isPm
-        });
-      } else {
-        showFeedback(feedbackMessage, `🌟 Excelente! Já acertaste esta pergunta!`, 'success');
-      }
-    } else {
-      streak = 0;
-      updateScoreboard();
-      audio.playErrorSound();
-      const targetStr = `${String(targetHour).padStart(2, '0')}:${String(targetMinute).padStart(2, '0')}`;
-      showFeedback(feedbackMessage, `❌ Tenta outra vez! Procuras a hora ${targetStr}.`, 'error');
-    }
-  });
-
   const handleQuizSelection = (selectedStr, correctStr, selectedBtn) => {
     const buttons = quizOptions.querySelectorAll('.quiz-option-btn');
     buttons.forEach(b => b.disabled = true);
@@ -391,7 +376,19 @@ document.addEventListener('DOMContentLoaded', () => {
       streak = 0;
       updateScoreboard();
       audio.playErrorSound();
-      showFeedback(quizFeedback, `❌ A resposta correta era ${correctStr}.`, 'error');
+
+      const [h, m] = correctStr.split(':').map(Number);
+      const hour12 = (h % 12) === 0 ? 12 : (h % 12);
+      const minNum = m === 0 ? 12 : (m / 5);
+      const periodStr = h >= 12 ? 'Tarde/Noite (PM)' : 'Manhã (AM)';
+
+      const explanation = `❌ <strong>Não foi desta vez! Vê como se lê este relógio:</strong><br><br>` +
+        `<strong>💡 Passo a passo para descobrir a hora (${correctStr}):</strong><br><br>` +
+        `1️⃣ <strong>Olha para o ponteiro VERMELHO (curto):</strong> Aponta para o <strong>${hour12}</strong> (Horas).<br>` +
+        `2️⃣ <strong>Olha para o ponteiro AZUL (longo):</strong> Aponta para o <strong>${minNum}</strong> (${m} Minutos).<br>` +
+        `3️⃣ <strong>Junta as duas partes:</strong> A resposta correta é <strong>${correctStr}</strong> (${periodStr})!`;
+
+      showFeedback(quizFeedback, explanation, 'error');
     }
 
     nextQuizBtn.classList.remove('hidden');
@@ -432,13 +429,13 @@ document.addEventListener('DOMContentLoaded', () => {
     checkAchievements();
   };
 
-  const showFeedback = (el, text, type) => {
-    el.textContent = text;
+  const showFeedback = (el, htmlText, type) => {
+    el.innerHTML = htmlText;
     el.className = `feedback-banner show ${type}`;
   };
 
   const hideFeedback = (el) => {
-    el.textContent = '';
+    el.innerHTML = '';
     el.className = 'feedback-banner';
   };
 

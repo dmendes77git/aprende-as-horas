@@ -48,18 +48,43 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   const QUESTIONS = [
-    { prompt: 'Qual é o 1º dia da semana de trabalho?', correct: 'Segunda-feira', choices: ['Segunda-feira', 'Sábado', 'Quarta-feira', 'Domingo'] },
-    { prompt: 'Que dias formam o Fim de Semana?', correct: 'Sábado e Domingo', choices: ['Sábado e Domingo', 'Segunda e Terça', 'Quinta e Sexta', 'Quarta e Quinta'] },
-    { prompt: 'Que dia vem a seguir a Sexta-feira?', correct: 'Sábado', choices: ['Sábado', 'Quinta-feira', 'Domingo', 'Segunda-feira'] },
-    { prompt: 'Que dia vem antes de Segunda-feira?', correct: 'Domingo', choices: ['Domingo', 'Sábado', 'Terça-feira', 'Sexta-feira'] },
-    { prompt: 'Quantos dias tem uma semana?', correct: '7 dias', choices: ['7 dias', '5 dias', '10 dias', '12 dias'] }
+    { 
+      prompt: 'Qual é o 1º dia da semana de trabalho?', 
+      correct: 'Segunda-feira', 
+      choices: ['Segunda-feira', 'Sábado', 'Quarta-feira', 'Domingo'], 
+      explanation: '1️⃣ O fim de semana acaba no Domingo.<br>2️⃣ O primeiro dia em que as pessoas regressam ao trabalho e à escola é a <strong>Segunda-feira</strong>!<br>3️⃣ Os dias úteis continuam com Terça, Quarta, Quinta e Sexta.' 
+    },
+    { 
+      prompt: 'Que dias formam o Fim de Semana?', 
+      correct: 'Sábado e Domingo', 
+      choices: ['Sábado e Domingo', 'Segunda e Terça', 'Quinta e Sexta', 'Quarta e Quinta'], 
+      explanation: '1️⃣ Os dias de trabalho/escola vão de Segunda a Sexta.<br>2️⃣ Os 2 dias de descanso e passeio são o <strong>Sábado</strong> e o <strong>Domingo</strong>!<br>3️⃣ Por isso, o Fim de Semana é formado por <strong>Sábado e Domingo</strong>.' 
+    },
+    { 
+      prompt: 'Que dia vem a seguir a Sexta-feira?', 
+      correct: 'Sábado', 
+      choices: ['Sábado', 'Quinta-feira', 'Domingo', 'Segunda-feira'], 
+      explanation: '1️⃣ Contamos a semana: Quinta-feira ➔ Sexta-feira...<br>2️⃣ Logo a seguir à Sexta-feira começa o fim de semana com o <strong>Sábado</strong>!<br>3️⃣ A sequência é: Sexta-feira ➔ <strong>Sábado</strong> ➔ Domingo.' 
+    },
+    { 
+      prompt: 'Que dia vem antes de Segunda-feira?', 
+      correct: 'Domingo', 
+      choices: ['Domingo', 'Sábado', 'Terça-feira', 'Sexta-feira'], 
+      explanation: '1️⃣ A semana recomeça na Segunda-feira.<br>2️⃣ O dia de descanso imediatamente anterior é o <strong>Domingo</strong>!<br>3️⃣ A sequência é: <strong>Domingo</strong> ➔ Segunda-feira.' 
+    },
+    { 
+      prompt: 'Quantos dias tem uma semana?', 
+      correct: '7 dias', 
+      choices: ['7 dias', '5 dias', '10 dias', '12 dias'], 
+      explanation: '1️⃣ Dias de trabalho/escola (5 dias): Segunda, Terça, Quarta, Quinta e Sexta.<br>2️⃣ Dias do fim de semana (2 dias): Sábado e Domingo.<br>3️⃣ Soma total: 5 + 2 = <strong>7 dias</strong> numa semana inteira!' 
+    }
   ];
 
   let currentQuestion = null;
 
   const generateQuestion = () => {
     diasFeedback.className = 'feedback-banner';
-    diasFeedback.textContent = '';
+    diasFeedback.innerHTML = '';
 
     currentQuestion = QUESTIONS[Math.floor(Math.random() * QUESTIONS.length)];
     diasPrompt.innerHTML = currentQuestion.prompt;
@@ -97,7 +122,8 @@ document.addEventListener('DOMContentLoaded', () => {
       streak = 0;
       updateScore();
       audio.playErrorSound();
-      showFeedback(`❌ A resposta correta era ${currentQuestion.correct}.`, 'error');
+      const expHtml = `❌ <strong>Não foi desta vez! A resposta correta é ${currentQuestion.correct}.</strong><br><br><strong>💡 Passo a passo para aprender:</strong><br>${currentQuestion.explanation}`;
+      showFeedback(expHtml, 'error');
     }
   };
 
@@ -106,8 +132,10 @@ document.addEventListener('DOMContentLoaded', () => {
     streakValue.textContent = `🔥 ${streak}`;
   };
 
-  const showFeedback = (msg, type) => {
-    diasFeedback.textContent = msg;
+  const showFeedback = (htmlMsg, type) => {
+    diasFeedback.innerHTML = htmlMsg;
+    diasFeedback.className = `feedback-banner show ${type}`;
+  };
     diasFeedback.className = `feedback-banner show ${type}`;
   };
 

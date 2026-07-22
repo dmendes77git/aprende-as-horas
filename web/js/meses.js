@@ -53,18 +53,43 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   const QUESTIONS = [
-    { prompt: 'Qual é o 1º mês do ano?', correct: 'Janeiro', choices: ['Janeiro', 'Dezembro', 'Março', 'Maio'] },
-    { prompt: 'Qual é o último mês do ano (12º)?', correct: 'Dezembro', choices: ['Dezembro', 'Novembro', 'Janeiro', 'Agosto'] },
-    { prompt: 'Em que mês se celebra o Natal? 🎄', correct: 'Dezembro', choices: ['Dezembro', 'Outubro', 'Janeiro', 'Junho'] },
-    { prompt: 'Qual é o mês mais curto do ano (28 ou 29 dias)?', correct: 'Fevereiro', choices: ['Fevereiro', 'Abril', 'Setembro', 'Junho'] },
-    { prompt: 'Quantos meses tem um ano completo?', correct: '12 meses', choices: ['12 meses', '10 meses', '7 meses', '24 meses'] }
+    { 
+      prompt: 'Qual é o 1º mês do ano?', 
+      correct: 'Janeiro', 
+      choices: ['Janeiro', 'Dezembro', 'Março', 'Maio'], 
+      explanation: '1️⃣ O ano novo começa a 1 de Janeiro.<br>2️⃣ O mês número 1 da lista do calendário é <strong>Janeiro</strong>!<br>3️⃣ A sequência inicial é: 1º Janeiro ➔ 2º Fevereiro ➔ 3º Março.' 
+    },
+    { 
+      prompt: 'Qual é o último mês do ano (12º)?', 
+      correct: 'Dezembro', 
+      choices: ['Dezembro', 'Novembro', 'Janeiro', 'Agosto'], 
+      explanation: '1️⃣ O ano tem 12 meses no total.<br>2️⃣ O mês número 12, onde celebramos o Natal e a Passagem de Ano, é <strong>Dezembro</strong>!<br>3️⃣ Por isso, o último mês do calendário é Dezembro.' 
+    },
+    { 
+      prompt: 'Em que mês se celebra o Natal? 🎄', 
+      correct: 'Dezembro', 
+      choices: ['Dezembro', 'Outubro', 'Janeiro', 'Junho'], 
+      explanation: '1️⃣ O Dia de Natal celebra-se no dia 25.<br>2️⃣ É no 12º e último mês do ano, que é <strong>Dezembro</strong>!<br>3️⃣ Toda a época natalícia decorre em Dezembro.' 
+    },
+    { 
+      prompt: 'Qual é o mês mais curto do ano (28 ou 29 dias)?', 
+      correct: 'Fevereiro', 
+      choices: ['Fevereiro', 'Abril', 'Setembro', 'Junho'], 
+      explanation: '1️⃣ Quase todos os meses têm 30 ou 31 dias.<br>2️⃣ O único mês especial que tem apenas 28 dias (ou 29 nos anos bissextos) é <strong>Fevereiro</strong>!<br>3️⃣ Logo, o mês mais curto é Fevereiro.' 
+    },
+    { 
+      prompt: 'Quantos meses tem um ano completo?', 
+      correct: '12 meses', 
+      choices: ['12 meses', '10 meses', '7 meses', '24 meses'], 
+      explanation: '1️⃣ Começamos em Janeiro (1º) e percorremos as 4 estações.<br>2️⃣ Terminamos em Dezembro (12º).<br>3️⃣ Um ano completo é formado por exatamente <strong>12 meses</strong>!' 
+    }
   ];
 
   let currentQuestion = null;
 
   const generateQuestion = () => {
     mesesFeedback.className = 'feedback-banner';
-    mesesFeedback.textContent = '';
+    mesesFeedback.innerHTML = '';
 
     currentQuestion = QUESTIONS[Math.floor(Math.random() * QUESTIONS.length)];
     mesesPrompt.innerHTML = currentQuestion.prompt;
@@ -102,7 +127,8 @@ document.addEventListener('DOMContentLoaded', () => {
       streak = 0;
       updateScore();
       audio.playErrorSound();
-      showFeedback(`❌ A resposta correta era ${currentQuestion.correct}.`, 'error');
+      const expHtml = `❌ <strong>Não foi desta vez! A resposta correta é ${currentQuestion.correct}.</strong><br><br><strong>💡 Passo a passo para aprender:</strong><br>${currentQuestion.explanation}`;
+      showFeedback(expHtml, 'error');
     }
   };
 
@@ -111,8 +137,8 @@ document.addEventListener('DOMContentLoaded', () => {
     streakValue.textContent = `🔥 ${streak}`;
   };
 
-  const showFeedback = (msg, type) => {
-    mesesFeedback.textContent = msg;
+  const showFeedback = (htmlMsg, type) => {
+    mesesFeedback.innerHTML = htmlMsg;
     mesesFeedback.className = `feedback-banner show ${type}`;
   };
 

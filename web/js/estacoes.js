@@ -45,18 +45,43 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   const QUESTIONS = [
-    { prompt: 'Em que estação do ano faz mais calor e vamos à praia? ☀️🏖️', correct: 'Verão', choices: ['Verão', 'Inverno', 'Outono', 'Primavera'] },
-    { prompt: 'Em que estação do ano caem as folhas das árvores? 🍁🍂', correct: 'Outono', choices: ['Outono', 'Verão', 'Primavera', 'Inverno'] },
-    { prompt: 'Em que estação nascem as flores e o tempo fica suave? 🌸🌻', correct: 'Primavera', choices: ['Primavera', 'Inverno', 'Outono', 'Verão'] },
-    { prompt: 'Em que estação do ano faz mais frio e chove mais? ❄️🌧️', correct: 'Inverno', choices: ['Inverno', 'Verão', 'Primavera', 'Outono'] },
-    { prompt: 'Quantas estações tem o ano em Portugal?', correct: '4 estações', choices: ['4 estações', '2 estações', '7 estações', '12 estações'] }
+    { 
+      prompt: 'Em que estação do ano faz mais calor e vamos à praia? ☀️🏖️', 
+      correct: 'Verão', 
+      choices: ['Verão', 'Inverno', 'Outono', 'Primavera'], 
+      explanation: '1️⃣ Pensamos em sol forte, dias quentes, praia e férias da escola.<br>2️⃣ Esta estação decorre de Junho a Setembro e chama-se <strong>Verão</strong>!<br>3️⃣ É a época mais quente do ano!' 
+    },
+    { 
+      prompt: 'Em que estação do ano caem as folhas das árvores? 🍁🍂', 
+      correct: 'Outono', 
+      choices: ['Outono', 'Verão', 'Primavera', 'Inverno'], 
+      explanation: '1️⃣ O calor do verão passa e o tempo fica mais fresco e amarelado.<br>2️⃣ As folhas das árvores mudam de cor para castanho/laranja e caem.<br>3️⃣ Esta época de transição de Setembro a Dezembro chama-se <strong>Outono</strong>!' 
+    },
+    { 
+      prompt: 'Em que estação nascem as flores e o tempo fica suave? 🌸🌻', 
+      correct: 'Primavera', 
+      choices: ['Primavera', 'Inverno', 'Outono', 'Verão'], 
+      explanation: '1️⃣ O frio do inverno passa e a natureza desperta.<br>2️⃣ Nascem as novas flores, os campos ficam verdes e os passarinhos cantam.<br>3️⃣ Esta estação florida de Março a Junho chama-se <strong>Primavera</strong>!' 
+    },
+    { 
+      prompt: 'Em que estação do ano faz mais frio e chove mais? ❄️🌧️', 
+      correct: 'Inverno', 
+      choices: ['Inverno', 'Verão', 'Primavera', 'Outono'], 
+      explanation: '1️⃣ Usamos casacos, gorros e guarda-chuvas.<br>2️⃣ Os dias são mais curtos, chove muito e em alguns locais cai neve.<br>3️⃣ A estação mais fria de Dezembro a Março chama-se <strong>Inverno</strong>!' 
+    },
+    { 
+      prompt: 'Quantas estações tem o ano em Portugal?', 
+      correct: '4 estações', 
+      choices: ['4 estações', '2 estações', '7 estações', '12 estações'], 
+      explanation: '1️⃣ Primavera (flores) ➔ 2️⃣ Verão (sol/praia) ➔ 3️⃣ Outono (folhas a cair) ➔ 4️⃣ Inverno (frio/chuva).<br>3️⃣ O ano divide-se em exatamente <strong>4 estações</strong>!' 
+    }
   ];
 
   let currentQuestion = null;
 
   const generateQuestion = () => {
     estacoesFeedback.className = 'feedback-banner';
-    estacoesFeedback.textContent = '';
+    estacoesFeedback.innerHTML = '';
 
     currentQuestion = QUESTIONS[Math.floor(Math.random() * QUESTIONS.length)];
     estacoesPrompt.innerHTML = currentQuestion.prompt;
@@ -94,7 +119,8 @@ document.addEventListener('DOMContentLoaded', () => {
       streak = 0;
       updateScore();
       audio.playErrorSound();
-      showFeedback(`❌ A resposta correta era ${currentQuestion.correct}.`, 'error');
+      const expHtml = `❌ <strong>Não foi desta vez! A resposta correta é ${currentQuestion.correct}.</strong><br><br><strong>💡 Passo a passo para aprender:</strong><br>${currentQuestion.explanation}`;
+      showFeedback(expHtml, 'error');
     }
   };
 
@@ -103,8 +129,8 @@ document.addEventListener('DOMContentLoaded', () => {
     streakValue.textContent = `🔥 ${streak}`;
   };
 
-  const showFeedback = (msg, type) => {
-    estacoesFeedback.textContent = msg;
+  const showFeedback = (htmlMsg, type) => {
+    estacoesFeedback.innerHTML = htmlMsg;
     estacoesFeedback.className = `feedback-banner show ${type}`;
   };
 
