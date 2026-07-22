@@ -296,6 +296,7 @@ class AchievementsEngine {
       unlockedAt: new Date().toLocaleDateString('pt-PT')
     };
     this.saveUnlocked();
+    this.updatePillCount();
 
     // Trigger Toast & Celebration
     this.showToast(achievement);
@@ -416,14 +417,35 @@ class AchievementsEngine {
   }
 
   injectHeaderButton() {
-    const headerControls = document.querySelector('.header-controls');
-    if (headerControls && !document.getElementById('achievementsHeaderBtn')) {
-      const btn = document.createElement('button');
-      btn.id = 'achievementsHeaderBtn';
-      btn.className = 'btn-achievements-header';
-      btn.innerHTML = `🏆 Conquistas <span class="ach-pill">${this.getUnlockedCount()} / ${this.getTotalCount()}</span>`;
-      btn.addEventListener('click', () => this.renderModal());
-      headerControls.insertBefore(btn, headerControls.firstChild);
+    const scoreCard = document.querySelector('.score-card');
+    if (scoreCard) {
+      // Remove legacy external button if present
+      const oldBtn = document.getElementById('achievementsHeaderBtn');
+      if (oldBtn) oldBtn.remove();
+
+      if (!document.getElementById('conquistasPillBtn')) {
+        const divider = document.createElement('div');
+        divider.className = 'score-divider';
+
+        const btn = document.createElement('button');
+        btn.id = 'conquistasPillBtn';
+        btn.className = 'score-conquistas-btn';
+        btn.setAttribute('title', 'Ver Galeria de Conquistas');
+        btn.innerHTML = `🏆 <span id="conquistasPillCount">${this.getUnlockedCount()} / ${this.getTotalCount()}</span>`;
+        btn.addEventListener('click', () => this.renderModal());
+
+        scoreCard.appendChild(divider);
+        scoreCard.appendChild(btn);
+      } else {
+        this.updatePillCount();
+      }
+    }
+  }
+
+  updatePillCount() {
+    const pill = document.getElementById('conquistasPillCount');
+    if (pill) {
+      pill.textContent = `${this.getUnlockedCount()} / ${this.getTotalCount()}`;
     }
   }
 }
