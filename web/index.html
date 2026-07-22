@@ -41,7 +41,7 @@
         </button>
       </nav>
 
-      <!-- Score & Streak Display -->
+      <!-- Score, Streak & Badges Display -->
       <div class="score-card">
         <div class="score-item">
           <span class="score-label">Pontos</span>
@@ -52,8 +52,36 @@
           <span class="score-label">Sequência</span>
           <span id="streakValue" class="streak-number">🔥 0</span>
         </div>
+        <div class="score-divider"></div>
+        <button id="openBadgesBtn" class="btn-badges" title="Ver Conquistas">
+          🏆 <span id="badgeCount">0/8</span>
+        </button>
       </div>
     </header>
+
+    <!-- Achievement Toast Notification -->
+    <div id="achievementToast" class="achievement-toast hidden">
+      <div class="toast-icon" id="toastIcon">🏆</div>
+      <div class="toast-content">
+        <span class="toast-title">Nova Conquista!</span>
+        <span class="toast-name" id="toastName">Mestre das Horas</span>
+      </div>
+    </div>
+
+    <!-- Badges & Achievements Modal -->
+    <div id="badgesModal" class="modal-overlay hidden">
+      <div class="modal-card glass-card">
+        <div class="modal-header">
+          <h2>🏆 Galeria de Conquistas</h2>
+          <button id="closeBadgesBtn" class="btn-close">&times;</button>
+        </div>
+        <p class="modal-subtitle">Cumpre os desafios para desbloquear todas as medalhas!</p>
+        
+        <div id="badgesGrid" class="badges-grid">
+          <!-- Dynamically populated badge cards -->
+        </div>
+      </div>
+    </div>
 
     <!-- Main Content Layout (Grid) -->
     <main class="main-layout">

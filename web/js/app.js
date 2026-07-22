@@ -209,6 +209,161 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   };
 
+  // --------------------------------------------------------------------------
+  // Badges & Achievements System
+  // --------------------------------------------------------------------------
+  const BADGES = [
+    { id: 'first_win', name: 'Primeiros Passos', icon: '🐣', desc: 'Completa o teu primeiro desafio com sucesso!' },
+    { id: 'noon_master', name: 'Mestre do Meio-Dia', icon: '☀️', desc: 'Acerta no desafio das 12:00 (Meio-dia) ou 24:00 (Meia-noite).' },
+    { id: 'night_explorer', name: 'Explorador da Noite', icon: '🌙', desc: 'Completa um desafio no modo Tarde/Noite (PM).' },
+    { id: 'streak_5', name: 'Em Chamas!', icon: '🔥', desc: 'Alcança uma sequência de 5 acertos seguidos.' },
+    { id: 'streak_10', name: 'Super Sequência', icon: '⚡', desc: 'Alcança uma sequência de 10 acertos seguidos.' },
+    { id: 'score_100', name: 'Mestre das Horas', icon: '🏆', desc: 'Alcança 100 pontos no total.' },
+    { id: 'speed_demon', name: 'Relâmpago', icon: '⏱️', desc: 'Consegue 50+ pontos no Modo Desafio 60s.' },
+    { id: 'polyglot', name: 'Poliglota', icon: '🔊', desc: 'Ouve a pronúncia da hora em português 3 vezes.' }
+  ];
+
+  let unlockedBadges = JSON.parse(localStorage.getItem('time_teacher_unlocked_badges') || '[]');
+  let speakCounter = 0;
+
+  const openBadgesBtn = document.getElementById('openBadgesBtn');
+  const closeBadgesBtn = document.getElementById('closeBadgesBtn');
+  const badgesModal = document.getElementById('badgesModal');
+  const badgesGrid = document.getElementById('badgesGrid');
+  const badgeCount = document.getElementById('badgeCount');
+  const achievementToast = document.getElementById('achievementToast');
+  const toastIcon = document.getElementById('toastIcon');
+  const toastName = document.getElementById('toastName');
+
+  let toastTimeout = null;
+
+  const updateBadgesUI = () => {
+    badgeCount.textContent = `${unlockedBadges.length}/${BADGES.length}`;
+
+    badgesGrid.innerHTML = '';
+    BADGES.forEach(badge => {
+      const isUnlocked = unlockedBadges.includes(badge.id);
+      const card = document.createElement('div');
+      card.className = `badge-card ${isUnlocked ? 'unlocked' : 'locked'}`;
+
+      card.innerHTML = `
+        <div class="badge-icon-box">${badge.icon}</div>
+        <div class="badge-info">
+          <span class="badge-title">${badge.name}</span>
+          <span class="badge-desc">${badge.desc}</span>
+          <span class="badge-status">${isUnlocked ? '✓ Desbloqueada' : '🔒 Bloqueada'}</span>
+        </div>
+      `;
+      badgesGrid.appendChild(card);
+    });
+  };
+
+  const unlockBadge = (badgeId) => {
+    if (unlockedBadges.includes(badgeId)) return;
+
+    const badge = BADGES.find(b => b.id === badgeId);
+    if (!badge) return;
+
+    unlockedBadges.push(badgeId);
+    localStorage.setItem('time_teacher_unlocked_badges', JSON.stringify(unlockedBadges));
+    updateBadgesUI();
+
+    // Trigger Toast Notification & Audio Fanfare
+    audio.playBadgeUnlockSound();
+    fireworks.triggerFireworks();
+
+    toastIcon.textContent = badge.icon;
+    toastName.textContent = badge.name;
+    achievementToast.classList.remove('hidden');
+
+    if (toastTimeout) clearTimeout(toastTimeout);
+    toastTimeout = setTimeout(() => {
+      achievementToast.classList.add('hidden');
+    }, 4000);
+  };
+
+  const checkAchievements = (eventData = {}) => {
+    // 1. Primeiros Passos
+    if (score >= 5) unlockBadge('first_win');
+
+    // 2. Mestre do Meio-Dia
+    if (eventData.hour === 12 || eventData.hour === 24 || eventData.hour === 0) {
+      if (eventData.minute === 0 && eventData.isCorrect) unlockBadge('noon_master');
+    }
+
+    // 3. Explorador da Noite
+    if (eventData.isPm && eventData.isCorrect) unlockBadge('night_explorer');
+
+    // 4 & 5. Streaks
+    if (streak >= 5) unlockBadge('streak_5');
+    if (streak >= 10) unlockBadge('streak_10');
+
+    // 6. Mestre das Horas
+    if (score >= 100) unlockBadge('score_100');
+
+    // 7. Relâmpago
+    if (eventData.isTimeAttackEnd && score >= 50) unlockBadge('speed_demon');
+
+    // 8. Poliglota
+    if (eventData.isSpeakClick) {
+      speakCounter++;
+      if (speakCounter >= 3) unlockBadge('polyglot');
+    }
+  };
+
+  // Modal Event Listeners
+  openBadgesBtn.addEventListener('click', () => {
+    updateBadgesUI();
+    badgesModal.classList.remove('hidden');
+  });
+
+  closeBadgesBtn.addEventListener('click', () => {
+    badgesModal.classList.add('hidden');
+  });
+
+  badgesModal.addEventListener('click', (e) => {
+    if (e.target === badgesModal) badgesModal.classList.add('hidden');
+  });
+
+  // Speak Time Button Event
+  speakTimeBtn.addEventListener('click', () => {
+    audio.speakTimeInPortuguese(clock.hour, clock.minute, clock.isPm);
+    checkAchievements({ isSpeakClick: true });
+  });
+
+  // Practice Mode Check
+  checkAnswerBtn.addEventListener('click', () => {
+    const userHour = clock.hour;
+    const userMinute = clock.minute;
+
+    if (userHour === targetHour && userMinute === targetMinute) {
+      if (!alreadyScored) {
+        score += 5;
+        streak += 1;
+        alreadyScored = true;
+        updateScoreboard();
+        audio.playSuccessSound();
+        fireworks.triggerFireworks();
+        showFeedback(feedbackMessage, `✨ Muito bem! Acertaste e ganhaste +5 pontos!`, 'success');
+
+        checkAchievements({
+          isCorrect: true,
+          hour: userHour,
+          minute: userMinute,
+          isPm: clock.isPm
+        });
+      } else {
+        showFeedback(feedbackMessage, `🌟 Excelente! Já acertaste esta pergunta!`, 'success');
+      }
+    } else {
+      streak = 0;
+      updateScoreboard();
+      audio.playErrorSound();
+      const targetStr = `${String(targetHour).padStart(2, '0')}:${String(targetMinute).padStart(2, '0')}`;
+      showFeedback(feedbackMessage, `❌ Tenta outra vez! Procuras a hora ${targetStr}.`, 'error');
+    }
+  });
+
   const handleQuizSelection = (selectedStr, correctStr, selectedBtn) => {
     const buttons = quizOptions.querySelectorAll('.quiz-option-btn');
     buttons.forEach(b => b.disabled = true);
@@ -221,6 +376,13 @@ document.addEventListener('DOMContentLoaded', () => {
       audio.playSuccessSound();
       fireworks.triggerFireworks();
       showFeedback(quizFeedback, `🎉 Correto! Ganhaste +10 pontos!`, 'success');
+
+      checkAchievements({
+        isCorrect: true,
+        hour: clock.hour,
+        minute: clock.minute,
+        isPm: clock.isPm
+      });
     } else {
       selectedBtn.classList.add('wrong');
       buttons.forEach(b => {
@@ -234,10 +396,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
     nextQuizBtn.classList.remove('hidden');
   };
-
-  nextQuizBtn.addEventListener('click', () => {
-    generateQuizQuestion();
-  });
 
   const start60sTimeAttack = () => {
     score = 0;
@@ -259,6 +417,8 @@ document.addEventListener('DOMContentLoaded', () => {
         showFeedback(quizFeedback, `🏆 Fim do tempo! Pontuação Final: ${score} pontos!`, 'success');
         audio.playSuccessSound();
         fireworks.triggerFireworks();
+
+        checkAchievements({ isTimeAttackEnd: true });
       }
     }, 1000);
   };
@@ -269,6 +429,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const updateScoreboard = () => {
     scoreValue.textContent = score;
     streakValue.textContent = `🔥 ${streak}`;
+    checkAchievements();
   };
 
   const showFeedback = (el, text, type) => {
@@ -282,5 +443,7 @@ document.addEventListener('DOMContentLoaded', () => {
   };
 
   // Initial Load
+  updateBadgesUI();
   generatePracticeChallenge();
 });
+
