@@ -124,10 +124,13 @@ body.theme-pm {
 /* Mode Navigation Tabs */
 .game-modes {
   display: flex;
+  align-items: center;
   background: rgba(0, 0, 0, 0.25);
   padding: 4px;
   border-radius: 999px;
   border: 1px solid rgba(255, 255, 255, 0.1);
+  height: 52px;
+  box-sizing: border-box;
 }
 
 .mode-tab {
@@ -137,7 +140,11 @@ body.theme-pm {
   font-family: var(--font-body);
   font-size: 0.95rem;
   font-weight: 600;
-  padding: 10px 18px;
+  padding: 0 18px;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   border-radius: 999px;
   cursor: pointer;
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
@@ -157,17 +164,20 @@ body.theme-pm {
 .score-card {
   display: flex;
   align-items: center;
-  background: rgba(0, 0, 0, 0.3);
+  background: rgba(0, 0, 0, 0.25);
   border: 1px solid rgba(255, 255, 255, 0.12);
-  padding: 8px 18px;
+  padding: 4px 18px;
   border-radius: 999px;
   gap: 16px;
+  height: 52px;
+  box-sizing: border-box;
 }
 
 .score-item {
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: center;
 }
 
 .score-label {
