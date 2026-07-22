@@ -137,6 +137,7 @@ document.addEventListener('DOMContentLoaded', () => {
       streak += 1;
       localStorage.setItem('meses_score', score);
       updateScore();
+      if (window.profiles) window.profiles.updateProfileScore('meses', score, streak);
       if (window.achievements) window.achievements.checkCategoryProgress('Meses', score, streak);
       audio.playSuccessSound();
       fireworks.triggerFireworks();

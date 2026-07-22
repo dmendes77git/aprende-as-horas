@@ -370,6 +370,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
     reportFinalScore.textContent = `${score} / 400`;
 
+    // Track Exams Completed & Score in profiles
+    if (window.profiles) window.profiles.updateProfileScore('exame', score, streak);
+
     // Track Exams Completed in localStorage
     let examsCompleted = parseInt(localStorage.getItem('app_exams_completed') || '0', 10) + 1;
     localStorage.setItem('app_exams_completed', examsCompleted);

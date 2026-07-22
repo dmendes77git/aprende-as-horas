@@ -155,6 +155,7 @@ document.addEventListener('DOMContentLoaded', () => {
         streak += 1;
         alreadyScored = true;
         updateScoreboard();
+        if (window.profiles) window.profiles.updateProfileScore('horas', score, streak);
         if (window.achievements) window.achievements.checkCategoryProgress('Horas', score, streak);
         audio.playSuccessSound();
         fireworks.triggerFireworks();

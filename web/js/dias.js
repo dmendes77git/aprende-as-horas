@@ -131,6 +131,7 @@ document.addEventListener('DOMContentLoaded', () => {
       streak += 1;
       localStorage.setItem('dias_score', score);
       updateScore();
+      if (window.profiles) window.profiles.updateProfileScore('dias', score, streak);
       if (window.achievements) window.achievements.checkCategoryProgress('Dias', score, streak);
       audio.playSuccessSound();
       fireworks.triggerFireworks();
