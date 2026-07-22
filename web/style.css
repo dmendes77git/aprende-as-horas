@@ -2,7 +2,18 @@
    CSS Design System - Aprende Brincando (Educational Suite)
    ========================================================================== */
 
-/* Shared Top Navigation Bar (Infopédia Style) */
+/* Shared Portal Navigation Bar (Glass Card Container) */
+.portal-top-bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 24px;
+  width: 100%;
+  border-radius: var(--radius-lg);
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
 .top-nav-bar {
   width: 100%;
   background: rgba(15, 23, 42, 0.95);
