@@ -129,6 +129,7 @@ document.addEventListener('DOMContentLoaded', () => {
       streak += 1;
       localStorage.setItem('estacoes_score', score);
       updateScore();
+      if (window.achievements) window.achievements.checkCategoryProgress('Estações', score, streak);
       audio.playSuccessSound();
       fireworks.triggerFireworks();
       showFeedback('✨ Espetacular! Acertaste!', 'success');

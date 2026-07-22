@@ -137,6 +137,7 @@ document.addEventListener('DOMContentLoaded', () => {
       streak += 1;
       localStorage.setItem('meses_score', score);
       updateScore();
+      if (window.achievements) window.achievements.checkCategoryProgress('Meses', score, streak);
       audio.playSuccessSound();
       fireworks.triggerFireworks();
       showFeedback('✨ Excelente! Resposta correta!', 'success');

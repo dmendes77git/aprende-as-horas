@@ -370,6 +370,17 @@ document.addEventListener('DOMContentLoaded', () => {
 
     reportFinalScore.textContent = `${score} / 400`;
 
+    // Track Exams Completed in localStorage
+    let examsCompleted = parseInt(localStorage.getItem('app_exams_completed') || '0', 10) + 1;
+    localStorage.setItem('app_exams_completed', examsCompleted);
+
+    if (window.achievements) {
+      window.achievements.checkCategoryProgress('Exame', score, streak, {
+        examScore: score,
+        examsCompleted: examsCompleted
+      });
+    }
+
     // Award Title
     if (score >= 380) {
       reportAwardIcon.textContent = '🏆';
