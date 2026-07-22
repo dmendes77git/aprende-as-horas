@@ -2137,6 +2137,30 @@ body.theme-pm .digital-clock {
 .lead-pts { color: #16a34a; font-size: 1.1rem; }
 .lead-exame { color: #ea580c; font-size: 1.05rem; }
 
+/* Portal Top Bar Container */
+.portal-top-bar {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  padding: 16px 24px;
+}
+
+.portal-top-bar #topbarUserWrapper {
+  position: absolute;
+  top: 14px;
+  left: 20px;
+  z-index: 100;
+}
+
+@media (max-width: 768px) {
+  .portal-top-bar #topbarUserWrapper {
+    position: static;
+    margin-bottom: 8px;
+  }
+}
+
 /* ==========================================================================
    Top-Left User Dropdown Menu
    ========================================================================== */
