@@ -339,10 +339,11 @@ document.addEventListener('DOMContentLoaded', () => {
   };
 
   // Modal Event Listeners
-  openBadgesBtn.addEventListener('click', () => {
-    updateBadgesUI();
-    badgesModal.classList.remove('hidden');
-  });
+  if (openBadgesBtn) {
+    openBadgesBtn.addEventListener('click', () => {
+      if (badgesModal) badgesModal.classList.remove('hidden');
+    });
+  }
 
   closeBadgesBtn.addEventListener('click', () => {
     badgesModal.classList.add('hidden');
