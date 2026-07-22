@@ -114,6 +114,10 @@ document.addEventListener('DOMContentLoaded', () => {
       audio.playSuccessSound();
       fireworks.triggerFireworks();
       showFeedback('✨ Muito bem! Acertaste!', 'success');
+
+      setTimeout(() => {
+        generateQuestion();
+      }, 1500);
     } else {
       btn.classList.add('wrong');
       buttons.forEach(b => {
