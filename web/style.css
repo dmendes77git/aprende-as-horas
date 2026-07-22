@@ -88,7 +88,6 @@ body.theme-pm {
 /* Header Bar */
 .app-header {
   display: flex;
-  flex-wrap: wrap;
   justify-content: space-between;
   align-items: center;
   background: var(--glass-bg);
@@ -98,6 +97,12 @@ body.theme-pm {
   padding: 16px 24px;
   border-radius: var(--radius-lg);
   box-shadow: var(--glass-shadow);
+  gap: 16px;
+}
+
+.header-controls {
+  display: flex;
+  align-items: center;
   gap: 16px;
 }
 

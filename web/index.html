@@ -28,34 +28,37 @@
         <h1>Aprende as Horas!</h1>
       </div>
 
-      <!-- Mode Selector Tabs -->
-      <nav class="game-modes">
-        <button id="modePracticeBtn" class="mode-tab active" data-mode="practice">
-          🎯 Treino Interativo
-        </button>
-        <button id="modeQuizBtn" class="mode-tab" data-mode="quiz">
-          ❓ Adivinha a Hora
-        </button>
-        <button id="modeTimeAttackBtn" class="mode-tab" data-mode="timeattack">
-          ⚡ Desafio 60s
-        </button>
-      </nav>
+      <!-- Header Controls: Modes & Score Card side-by-side -->
+      <div class="header-controls">
+        <!-- Mode Selector Tabs -->
+        <nav class="game-modes">
+          <button id="modePracticeBtn" class="mode-tab active" data-mode="practice">
+            🎯 Treino Interativo
+          </button>
+          <button id="modeQuizBtn" class="mode-tab" data-mode="quiz">
+            ❓ Adivinha a Hora
+          </button>
+          <button id="modeTimeAttackBtn" class="mode-tab" data-mode="timeattack">
+            ⚡ Desafio 60s
+          </button>
+        </nav>
 
-      <!-- Score, Streak & Badges Display -->
-      <div class="score-card">
-        <div class="score-item">
-          <span class="score-label">Pontos</span>
-          <span id="scoreValue" class="score-number">0</span>
+        <!-- Score, Streak & Badges Display -->
+        <div class="score-card">
+          <div class="score-item">
+            <span class="score-label">Pontos</span>
+            <span id="scoreValue" class="score-number">0</span>
+          </div>
+          <div class="score-divider"></div>
+          <div class="score-item">
+            <span class="score-label">Sequência</span>
+            <span id="streakValue" class="streak-number">🔥 0</span>
+          </div>
+          <div class="score-divider"></div>
+          <button id="openBadgesBtn" class="btn-badges" title="Ver Conquistas">
+            🏆 <span id="badgeCount">0/8</span>
+          </button>
         </div>
-        <div class="score-divider"></div>
-        <div class="score-item">
-          <span class="score-label">Sequência</span>
-          <span id="streakValue" class="streak-number">🔥 0</span>
-        </div>
-        <div class="score-divider"></div>
-        <button id="openBadgesBtn" class="btn-badges" title="Ver Conquistas">
-          🏆 <span id="badgeCount">0/8</span>
-        </button>
       </div>
     </header>
 
