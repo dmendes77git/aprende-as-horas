@@ -166,14 +166,14 @@ document.addEventListener('DOMContentLoaded', () => {
           minute: userMinute,
           isPm: clock.isPm
         });
-
-        // Automatically progress to next random question after 1.5s
-        setTimeout(() => {
-          generatePracticeChallenge();
-        }, 1500);
       } else {
         showFeedback(feedbackMessage, `🌟 Excelente! Já acertaste esta pergunta!`, 'success');
       }
+
+      // Automatically progress to next random question after 1s
+      setTimeout(() => {
+        generatePracticeChallenge();
+      }, 1000);
     } else {
       streak = 0;
       updateScoreboard();
@@ -377,12 +377,12 @@ document.addEventListener('DOMContentLoaded', () => {
         isPm: clock.isPm
       });
 
-      // Automatically progress to next random question after 1.5s
+      // Automatically progress to next random question after 1s
       setTimeout(() => {
         if (currentMode === 'quiz' || currentMode === 'timeattack') {
           generateQuizQuestion();
         }
-      }, 1500);
+      }, 1000);
     } else {
       selectedBtn.classList.add('wrong');
       buttons.forEach(b => {

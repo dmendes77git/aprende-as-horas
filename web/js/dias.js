@@ -119,7 +119,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
       setTimeout(() => {
         generateQuestion();
-      }, 1500);
+      }, 1000);
     } else {
       btn.classList.add('wrong');
       buttons.forEach(b => {
