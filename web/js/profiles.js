@@ -105,8 +105,169 @@ class ProfilesEngine {
       this.renderOnboardingModal();
     } else {
       this.injectProfilePill();
+      this.injectTopbarUserMenu();
     }
   }
+
+  injectProfilePill() {
+    const active = this.getActiveProfile();
+    if (!active) return;
+
+    const scoreCard = document.querySelector('.score-card');
+    if (scoreCard && !document.getElementById('profilePillBtn')) {
+      const profileBtn = document.createElement('button');
+      profileBtn.id = 'profilePillBtn';
+      profileBtn.className = 'score-profile-btn';
+      profileBtn.setAttribute('title', 'Mudar de Perfil de Criança');
+      profileBtn.innerHTML = `<span class="pill-av">${active.avatar}</span> <span class="pill-name">${active.name}</span>`;
+      profileBtn.addEventListener('click', () => this.renderProfileSwitcherModal());
+
+      const divider = document.createElement('div');
+      divider.className = 'score-divider';
+
+      scoreCard.insertBefore(profileBtn, scoreCard.firstChild);
+      scoreCard.insertBefore(divider, profileBtn.nextSibling);
+    }
+
+    this.injectTopbarUserMenu();
+  }
+
+  updateProfilePill() {
+    const pillName = document.querySelector('#profilePillBtn .pill-name');
+    const pillAv = document.querySelector('#profilePillBtn .pill-av');
+    const active = this.getActiveProfile();
+    if (pillName && pillAv && active) {
+      pillName.textContent = active.name;
+      pillAv.textContent = active.avatar;
+    }
+    this.updateTopbarUserMenu();
+  }
+
+  injectTopbarUserMenu() {
+    const active = this.getActiveProfile();
+    if (!active) return;
+
+    // Target top navigation bar
+    const topBar = document.querySelector('.portal-top-bar') || document.querySelector('.app-header');
+    if (topBar && !document.getElementById('topbarUserWrapper')) {
+      const wrapper = document.createElement('div');
+      wrapper.id = 'topbarUserWrapper';
+      wrapper.className = 'topbar-user-wrapper';
+
+      wrapper.innerHTML = `
+        <button id="topbarUserBtn" class="topbar-user-btn" title="Escolher ou Adicionar Criança">
+          <span class="user-av">${active.avatar}</span>
+          <span class="user-name">${active.name}</span>
+          <span class="dropdown-arrow">▾</span>
+        </button>
+
+        <div id="topbarUserDropdown" class="topbar-user-dropdown hidden">
+          <div class="user-dropdown-title">👤 Quem está a jogar?</div>
+          <div class="user-dropdown-list">
+            ${this.renderDropdownUserItems(active)}
+          </div>
+          <div class="user-dropdown-divider"></div>
+          <button id="topbarAddUserBtn" class="user-dropdown-item add-user-item">
+            <span>➕</span> Adicionar Nova Criança
+          </button>
+        </div>
+      `;
+
+      // Insert at the top left of top bar
+      topBar.insertBefore(wrapper, topBar.firstChild);
+
+      const btn = wrapper.querySelector('#topbarUserBtn');
+      const dropdown = wrapper.querySelector('#topbarUserDropdown');
+
+      btn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        dropdown.classList.toggle('hidden');
+      });
+
+      this.bindDropdownEvents(wrapper);
+
+      document.addEventListener('click', (e) => {
+        if (!wrapper.contains(e.target)) {
+          dropdown.classList.add('hidden');
+        }
+      });
+    } else if (document.getElementById('topbarUserWrapper')) {
+      this.updateTopbarUserMenu();
+    }
+  }
+
+  renderDropdownUserItems(active) {
+    return this.profiles.map(p => {
+      const isActive = active && active.id === p.id;
+      return `
+        <button class="user-dropdown-item ${isActive ? 'active' : ''}" data-id="${p.id}">
+          <div class="item-left">
+            <span class="item-av">${p.avatar}</span>
+            <span class="item-name">${p.name}</span>
+          </div>
+          ${isActive ? '<span class="active-tag">Atual</span>' : ''}
+        </button>
+      `;
+    }).join('');
+  }
+
+  bindDropdownEvents(wrapper) {
+    const dropdown = wrapper.querySelector('#topbarUserDropdown');
+
+    wrapper.querySelectorAll('.user-dropdown-item[data-id]').forEach(item => {
+      item.addEventListener('click', (e) => {
+        e.stopPropagation();
+        const id = item.getAttribute('data-id');
+        if (dropdown) dropdown.classList.add('hidden');
+        this.setActiveProfile(id);
+      });
+    });
+
+    const addBtn = wrapper.querySelector('#topbarAddUserBtn');
+    if (addBtn) {
+      addBtn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        if (dropdown) dropdown.classList.add('hidden');
+        this.renderOnboardingModal();
+      });
+    }
+  }
+
+  updateTopbarUserMenu() {
+    const active = this.getActiveProfile();
+    if (!active) return;
+
+    const wrapper = document.getElementById('topbarUserWrapper');
+    if (!wrapper) return;
+
+    const nameEl = wrapper.querySelector('#topbarUserBtn .user-name');
+    const avEl = wrapper.querySelector('#topbarUserBtn .user-av');
+    if (nameEl) nameEl.textContent = active.name;
+    if (avEl) avEl.textContent = active.avatar;
+
+    const listEl = wrapper.querySelector('.user-dropdown-list');
+    if (listEl) {
+      listEl.innerHTML = this.renderDropdownUserItems(active);
+      this.bindDropdownEvents(wrapper);
+    }
+  }
+}
+
+// Global Singleton
+window.profiles = new ProfilesEngine();
+
+document.addEventListener('DOMContentLoaded', () => {
+  window.profiles.checkFirstAccess();
+
+  // Bind top bar leaderboard button if present
+  const leadNavBtn = document.getElementById('openLeaderboardBtn');
+  if (leadNavBtn) {
+    leadNavBtn.addEventListener('click', (e) => {
+      e.preventDefault();
+      window.profiles.renderLeaderboardModal();
+    });
+  }
+});
 
   renderOnboardingModal() {
     let modal = document.getElementById('onboardingModal');
