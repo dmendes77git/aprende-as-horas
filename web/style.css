@@ -489,10 +489,11 @@ body.theme-pm {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background: rgba(0, 0, 0, 0.35);
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: rgba(15, 23, 42, 0.92);
+  border: 1px solid rgba(255, 255, 255, 0.15);
   padding: 14px 20px;
   border-radius: var(--radius-md);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.25);
 }
 
 .digital-time-box {
@@ -503,8 +504,8 @@ body.theme-pm {
 
 .digital-label {
   font-size: 0.95rem;
-  color: var(--text-secondary);
-  font-weight: 500;
+  color: #94a3b8;
+  font-weight: 600;
 }
 
 .digital-clock {
@@ -513,10 +514,12 @@ body.theme-pm {
   font-weight: 700;
   letter-spacing: 2px;
   color: #60a5fa;
+  text-shadow: 0 0 12px rgba(96, 165, 250, 0.5);
 }
 
 body.theme-pm .digital-clock {
   color: #fb923c;
+  text-shadow: 0 0 12px rgba(251, 146, 60, 0.5);
 }
 
 .btn-speak {
@@ -559,8 +562,8 @@ body.theme-pm .digital-clock {
 
 /* Guide Box */
 .guide-box {
-  background: rgba(255, 255, 255, 0.04);
-  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: rgba(15, 23, 42, 0.05);
+  border: 1px solid #e2e8f0;
   padding: 16px 20px;
   border-radius: var(--radius-md);
 }
@@ -568,7 +571,7 @@ body.theme-pm .digital-clock {
 .guide-box h3 {
   font-family: var(--font-heading);
   font-size: 1.15rem;
-  color: #e2e8f0;
+  color: #0f172a;
   margin-bottom: 12px;
 }
 
@@ -579,6 +582,7 @@ body.theme-pm .digital-clock {
   gap: 10px;
   font-size: 0.92rem;
   line-height: 1.4;
+  color: #334155;
 }
 
 .guide-list li {
@@ -598,16 +602,17 @@ body.theme-pm .digital-clock {
 
 .hr-divider {
   height: 1px;
-  background: rgba(255, 255, 255, 0.1);
+  background: #e2e8f0;
   width: 100%;
 }
 
 /* Challenge Section */
 .challenge-box {
-  background: rgba(0, 0, 0, 0.25);
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: rgba(15, 23, 42, 0.92);
+  border: 1px solid rgba(255, 255, 255, 0.15);
   padding: 18px 22px;
   border-radius: var(--radius-md);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.25);
 }
 
 .challenge-header {
@@ -643,7 +648,7 @@ body.theme-pm .digital-clock {
   font-family: var(--font-heading);
   font-size: 1.35rem;
   color: #38bdf8;
-  background: rgba(56, 189, 248, 0.15);
+  background: rgba(56, 189, 248, 0.2);
   padding: 2px 8px;
   border-radius: 6px;
 }
