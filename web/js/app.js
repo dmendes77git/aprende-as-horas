@@ -133,6 +133,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const generatePracticeChallenge = () => {
     alreadyScored = false;
     hideFeedback(feedbackMessage);
+    nextChallengeBtn.classList.add('hidden');
 
     const challenge = sampleChallenges[Math.floor(Math.random() * sampleChallenges.length)];
     targetHour = challenge.hour;
@@ -157,6 +158,7 @@ document.addEventListener('DOMContentLoaded', () => {
         audio.playSuccessSound();
         fireworks.triggerFireworks();
         showFeedback(feedbackMessage, `✨ Muito bem! Acertaste e ganhaste +5 pontos!`, 'success');
+        nextChallengeBtn.classList.add('hidden');
 
         checkAchievements({
           isCorrect: true,
@@ -189,6 +191,7 @@ document.addEventListener('DOMContentLoaded', () => {
         `3️⃣ <strong>Botão AM/PM:</strong> Seleciona o modo <strong>${periodMode}</strong>.`;
 
       showFeedback(feedbackMessage, explanation, 'error');
+      nextChallengeBtn.classList.remove('hidden');
     }
   });
 
@@ -401,9 +404,8 @@ document.addEventListener('DOMContentLoaded', () => {
         `3️⃣ <strong>Junta as duas partes:</strong> A resposta correta é <strong>${correctStr}</strong> (${periodStr})!`;
 
       showFeedback(quizFeedback, explanation, 'error');
+      nextQuizBtn.classList.remove('hidden');
     }
-
-    nextQuizBtn.classList.remove('hidden');
   };
 
   const start60sTimeAttack = () => {

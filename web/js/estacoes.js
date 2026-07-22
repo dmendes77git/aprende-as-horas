@@ -82,6 +82,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const generateQuestion = () => {
     estacoesFeedback.className = 'feedback-banner';
     estacoesFeedback.innerHTML = '';
+    nextEstacoesBtn.classList.add('hidden');
 
     currentQuestion = QUESTIONS[Math.floor(Math.random() * QUESTIONS.length)];
     estacoesPrompt.innerHTML = currentQuestion.prompt;
@@ -111,6 +112,7 @@ document.addEventListener('DOMContentLoaded', () => {
       audio.playSuccessSound();
       fireworks.triggerFireworks();
       showFeedback('✨ Espetacular! Acertaste!', 'success');
+      nextEstacoesBtn.classList.add('hidden');
 
       setTimeout(() => {
         generateQuestion();
@@ -125,6 +127,7 @@ document.addEventListener('DOMContentLoaded', () => {
       audio.playErrorSound();
       const expHtml = `❌ <strong>Não foi desta vez! A resposta correta é ${currentQuestion.correct}.</strong><br><br><strong>💡 Passo a passo para aprender:</strong><br>${currentQuestion.explanation}`;
       showFeedback(expHtml, 'error');
+      nextEstacoesBtn.classList.remove('hidden');
     }
   };
 

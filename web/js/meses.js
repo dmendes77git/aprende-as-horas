@@ -90,6 +90,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const generateQuestion = () => {
     mesesFeedback.className = 'feedback-banner';
     mesesFeedback.innerHTML = '';
+    nextMesesBtn.classList.add('hidden');
 
     currentQuestion = QUESTIONS[Math.floor(Math.random() * QUESTIONS.length)];
     mesesPrompt.innerHTML = currentQuestion.prompt;
@@ -119,6 +120,7 @@ document.addEventListener('DOMContentLoaded', () => {
       audio.playSuccessSound();
       fireworks.triggerFireworks();
       showFeedback('✨ Excelente! Resposta correta!', 'success');
+      nextMesesBtn.classList.add('hidden');
 
       setTimeout(() => {
         generateQuestion();
@@ -133,6 +135,7 @@ document.addEventListener('DOMContentLoaded', () => {
       audio.playErrorSound();
       const expHtml = `❌ <strong>Não foi desta vez! A resposta correta é ${currentQuestion.correct}.</strong><br><br><strong>💡 Passo a passo para aprender:</strong><br>${currentQuestion.explanation}`;
       showFeedback(expHtml, 'error');
+      nextMesesBtn.classList.remove('hidden');
     }
   };
 
