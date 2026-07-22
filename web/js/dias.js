@@ -36,13 +36,7 @@ document.addEventListener('DOMContentLoaded', () => {
       <span class="day-type">${day.type}</span>
     `;
     item.addEventListener('click', () => {
-      audio.speakTimeInPortuguese(0, 0, false);
-      if (audio.synth) {
-        audio.synth.cancel();
-        const u = new SpeechSynthesisUtterance(day.name);
-        u.lang = 'pt-PT';
-        audio.synth.speak(u);
-      }
+      audio.speakText(day.name);
     });
     daysList.appendChild(item);
   });
@@ -141,8 +135,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
   const showFeedback = (htmlMsg, type) => {
     diasFeedback.innerHTML = htmlMsg;
-    diasFeedback.className = `feedback-banner show ${type}`;
-  };
     diasFeedback.className = `feedback-banner show ${type}`;
   };
 

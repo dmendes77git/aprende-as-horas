@@ -42,12 +42,7 @@ document.addEventListener('DOMContentLoaded', () => {
       <span class="month-days">${m.days} dias</span>
     `;
     item.addEventListener('click', () => {
-      if (audio.synth) {
-        audio.synth.cancel();
-        const u = new SpeechSynthesisUtterance(`${m.name}, mês número ${m.num}, tem ${m.days} dias.`);
-        u.lang = 'pt-PT';
-        audio.synth.speak(u);
-      }
+      audio.speakText(`${m.name}, mês número ${m.num}, tem ${m.days} dias.`);
     });
     monthsGrid.appendChild(item);
   });

@@ -34,12 +34,7 @@ document.addEventListener('DOMContentLoaded', () => {
       <span class="season-months">${s.months}</span>
     `;
     item.addEventListener('click', () => {
-      if (audio.synth) {
-        audio.synth.cancel();
-        const u = new SpeechSynthesisUtterance(`${s.name}. ${s.climate}. Meses: ${s.months}.`);
-        u.lang = 'pt-PT';
-        audio.synth.speak(u);
-      }
+      audio.speakText(`${s.name}. ${s.climate}. Meses: ${s.months}.`);
     });
     seasonsGrid.appendChild(item);
   });
