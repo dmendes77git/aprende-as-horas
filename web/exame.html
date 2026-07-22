@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Modo Exame Geral - Aprende Brincando!</title>
+  <meta name="description" content="Exame Geral sequencial com 40 perguntas em 4 fases: Horas, Dias da Semana, Os Meses e Estações do Ano com relatório pedagógico interativo!">
+  
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600;700&family=Outfit:wght@400;500;600;700&display=swap" rel="stylesheet">
+  
+  <!-- Stylesheet -->
+  <link rel="stylesheet" href="style.css?v=3.0">
+</head>
+<body class="theme-am">
+
+  <!-- Particle Canvas Overlay for Celebrations -->
+  <canvas id="fireworksCanvas"></canvas>
+
+  <div class="app-container">
+    
+    <!-- Top Navigation Bar Glass Card -->
+    <header class="portal-top-bar glass-card">
+      <a href="index.html" class="nav-brand">
+        <span class="nav-icon">🎨</span>
+        <span class="nav-title">Aprende Brincando!</span>
+      </a>
+
+      <nav class="nav-links">
+        <a href="index.html" class="nav-link">
+          <span class="link-icon">🏠</span>
+          <span class="link-text">Início</span>
+        </a>
+        <a href="horas.html" class="nav-link">
+          <span class="link-icon">⏰</span>
+          <span class="link-text">Aprende as Horas</span>
+        </a>
+        <a href="dias.html" class="nav-link">
+          <span class="link-icon">📅</span>
+          <span class="link-text">Dias da Semana</span>
+        </a>
+        <a href="meses.html" class="nav-link">
+          <span class="link-icon">🗓️</span>
+          <span class="link-text">Os Meses</span>
+        </a>
+        <a href="estacoes.html" class="nav-link">
+          <span class="link-icon">🍂</span>
+          <span class="link-text">Estações do Ano</span>
+        </a>
+        <a href="exame.html" class="nav-link active">
+          <span class="link-icon">📝</span>
+          <span class="link-text">Modo Exame</span>
+        </a>
+      </nav>
+    </header>
+
+    <!-- App Header Banner Card -->
+    <header class="app-header">
+      <div class="brand">
+        <span class="clock-icon">📝</span>
+        <h1>Exame Geral Sequencial!</h1>
+      </div>
+
+      <div class="header-controls">
+        <div class="score-card">
+          <div class="score-item">
+            <span class="score-label">Pontos</span>
+            <span id="scoreValue" class="score-number">0</span>
+          </div>
+          <div class="score-divider"></div>
+          <div class="score-item">
+            <span class="score-label">Sequência</span>
+            <span id="streakValue" class="streak-number">🔥 0</span>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <!-- EXAM RUNNER CONTAINER -->
+    <main id="examRunner" class="main-content">
+      
+      <!-- Phase & Progress Bar Bar -->
+      <div class="exam-progress-card glass-card">
+        <div class="exam-progress-header">
+          <span id="phaseBadge" class="phase-badge phase-horas">Fase 1: Aprende as Horas (10 Perguntas)</span>
+          <span id="questionCounter" class="question-counter">Pergunta 1 / 40</span>
+        </div>
+        <div class="progress-bar-track">
+          <div id="progressBarFill" class="progress-bar-fill" style="width: 2.5%;"></div>
+        </div>
+      </div>
+
+      <!-- Question Card Container -->
+      <div class="exam-question-card glass-card">
+        
+        <!-- Optional Clock View for Horas phase -->
+        <div id="examClockWrapper" class="exam-clock-container hidden">
+          <canvas id="clockCanvas" width="300" height="300"></canvas>
+        </div>
+
+        <div class="challenge-box">
+          <div class="challenge-header">
+            <h3 id="examCategoryTitle">⏰ Pergunta sobre as Horas</h3>
+          </div>
+          <p id="examPromptText" class="challenge-text">
+            A carregar pergunta...
+          </p>
+        </div>
+
+        <div id="examOptionsGrid" class="quiz-grid">
+          <!-- Dynamically populated by exame.js -->
+        </div>
+
+        <button id="checkExamBtn" class="btn-primary width-full">
+          ✨ Verificar Resposta!
+        </button>
+
+        <div id="examFeedback" class="feedback-banner"></div>
+
+        <button id="nextExamBtn" class="btn-secondary width-full hidden">
+          🎲 Próxima Pergunta ➔
+        </button>
+
+      </div>
+
+    </main>
+
+    <!-- FINAL REPORT CARD CONTAINER (Hidden until Exam finishes) -->
+    <section id="examReportContainer" class="glass-card hidden">
+      
+      <div class="report-header">
+        <span class="report-icon">🏆</span>
+        <h2>Relatório Final do Exame Geral</h2>
+        <p class="report-subtitle">Parabéns! Completaste as 40 perguntas do exame sequencial!</p>
+      </div>
+
+      <div class="report-score-banner">
+        <div class="score-big-box">
+          <span class="score-big-label">PONTUAÇÃO FINAL</span>
+          <span id="reportFinalScore" class="score-big-val">0 / 400</span>
+        </div>
+        <div class="badge-award-box">
+          <span id="reportAwardIcon" class="award-icon">🌟</span>
+          <span id="reportAwardTitle" class="award-title">Excelente Trabalho!</span>
+        </div>
+      </div>
+
+      <!-- Phase Performance Grid -->
+      <div class="report-phases-grid">
+        <div class="phase-stat-card">
+          <span class="stat-icon">⏰</span>
+          <span class="stat-name">Horas</span>
+          <span id="statHoras" class="stat-val">0 / 10</span>
+        </div>
+        <div class="phase-stat-card">
+          <span class="stat-icon">📅</span>
+          <span class="stat-name">Dias</span>
+          <span id="statDias" class="stat-val">0 / 10</span>
+        </div>
+        <div class="phase-stat-card">
+          <span class="stat-icon">🗓️</span>
+          <span class="stat-name">Meses</span>
+          <span id="statMeses" class="stat-val">0 / 10</span>
+        </div>
+        <div class="phase-stat-card">
+          <span class="stat-icon">🍂</span>
+          <span class="stat-name">Estações</span>
+          <span id="statEstacoes" class="stat-val">0 / 10</span>
+        </div>
+      </div>
+
+      <!-- Questions List Section -->
+      <div class="report-questions-section">
+        <h3>📋 Lista Completa das 40 Perguntas</h3>
+        <p class="section-subtext">💡 Clica em qualquer pergunta para ver a explicação pedagógica passo a passo!</p>
+
+        <div id="reportQuestionsList" class="report-questions-list">
+          <!-- Dynamically populated by exame.js -->
+        </div>
+      </div>
+
+      <div class="report-actions">
+        <button id="restartExamBtn" class="btn-primary width-full">
+          🔄 Fazer Novo Exame Geral
+        </button>
+      </div>
+
+    </section>
+
+    <!-- PEDAGOGICAL REVIEW MODAL (Opened when a question in the report is clicked) -->
+    <div id="reviewModal" class="modal-backdrop hidden">
+      <div class="modal-card glass-card">
+        <div class="modal-header">
+          <h2 id="reviewModalTitle" class="modal-title">💡 Explicação Pedagógica</h2>
+          <button id="closeReviewModalBtn" class="modal-close-btn">&times;</button>
+        </div>
+        
+        <div class="modal-body">
+          <div id="reviewQuestionBox" class="review-question-box">
+            <!-- Question details -->
+          </div>
+
+          <div id="reviewResultBox" class="review-result-box">
+            <!-- Answer comparison -->
+          </div>
+
+          <div id="reviewExplanationBox" class="review-explanation-box">
+            <!-- Step by step 3-step explanation card -->
+          </div>
+        </div>
+
+        <button id="closeReviewBtn" class="btn-secondary width-full">
+          Fechar Explicação
+        </button>
+      </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="app-footer">
+      <p>Aprende Brincando! • Exame Geral Sequencial 🎓📝</p>
+    </footer>
+
+  </div>
+
+  <!-- Scripts -->
+  <script src="js/fireworks.js?v=3.0"></script>
+  <script src="js/audio.js?v=3.0"></script>
+  <script src="js/clock.js?v=3.0"></script>
+  <script src="js/exame.js?v=3.0"></script>
+</body>
+</html>
