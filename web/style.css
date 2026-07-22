@@ -684,20 +684,23 @@ body.theme-pm .digital-clock {
 }
 
 .btn-secondary {
-  background: rgba(255, 255, 255, 0.08);
-  border: 1px solid rgba(255, 255, 255, 0.18);
-  color: var(--text-primary);
-  font-family: var(--font-body);
-  font-size: 1.05rem;
+  background: linear-gradient(135deg, #f97316, #ea580c);
+  border: none;
+  color: #ffffff;
+  font-family: var(--font-heading);
+  font-size: 1.1rem;
   font-weight: 600;
-  padding: 12px 20px;
+  padding: 14px 24px;
   border-radius: var(--radius-md);
   cursor: pointer;
+  box-shadow: 0 4px 14px rgba(249, 115, 22, 0.35);
   transition: all 0.2s ease;
 }
 
 .btn-secondary:hover {
-  background: rgba(255, 255, 255, 0.16);
+  background: linear-gradient(135deg, #fb923c, #f97316);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 18px rgba(249, 115, 22, 0.5);
 }
 
 .width-full {
@@ -712,34 +715,37 @@ body.theme-pm .digital-clock {
 }
 
 .quiz-option-btn {
-  background: rgba(255, 255, 255, 0.06);
-  border: 1px solid rgba(255, 255, 255, 0.12);
-  color: var(--text-primary);
+  background: #ffffff;
+  border: 2px solid #e2e8f0;
+  color: #0f172a !important;
   font-family: var(--font-heading);
   font-size: 1.15rem;
+  font-weight: 600;
   padding: 16px;
   border-radius: var(--radius-md);
   cursor: pointer;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.04);
   transition: all 0.2s ease;
   text-align: center;
 }
 
 .quiz-option-btn:hover {
-  background: rgba(255, 255, 255, 0.16);
-  border-color: rgba(255, 255, 255, 0.3);
-  transform: scale(1.02);
+  background: #f8fafc;
+  border-color: #cbd5e1;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.08);
 }
 
 .quiz-option-btn.correct {
-  background: rgba(34, 197, 94, 0.3) !important;
+  background: #dcfce7 !important;
   border-color: #22c55e !important;
-  color: #4ade80 !important;
+  color: #15803d !important;
 }
 
 .quiz-option-btn.wrong {
-  background: rgba(244, 63, 94, 0.3) !important;
-  border-color: #f43f5e !important;
-  color: #fda4af !important;
+  background: #fee2e2 !important;
+  border-color: #ef4444 !important;
+  color: #b91c1c !important;
 }
 
 /* Feedback Message Banner */
@@ -1146,13 +1152,13 @@ body.theme-pm .digital-clock {
 .section-title {
   font-family: var(--font-heading);
   font-size: 1.4rem;
-  color: #ffffff;
+  color: #0f172a;
   margin-bottom: 6px;
 }
 
 .section-desc {
   font-size: 0.9rem;
-  color: var(--text-secondary);
+  color: #64748b;
   margin-bottom: 16px;
 }
 
@@ -1163,25 +1169,27 @@ body.theme-pm .digital-clock {
 }
 
 .day-card {
-  background: rgba(255, 255, 255, 0.06);
-  border: 1px solid rgba(255, 255, 255, 0.12);
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
   padding: 12px 18px;
   border-radius: var(--radius-md);
   display: flex;
   align-items: center;
   justify-content: space-between;
   cursor: pointer;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.03);
   transition: all 0.2s ease;
 }
 
 .day-card:hover {
-  background: rgba(255, 255, 255, 0.14);
+  background: #f8fafc;
+  border-color: #cbd5e1;
   transform: translateX(4px);
 }
 
 .day-icon { font-size: 1.5rem; }
-.day-name { font-family: var(--font-heading); font-size: 1.15rem; color: #ffffff; }
-.day-type { font-size: 0.8rem; font-weight: 700; color: #38bdf8; background: rgba(56, 189, 248, 0.15); padding: 4px 10px; border-radius: 999px; }
+.day-name { font-family: var(--font-heading); font-size: 1.15rem; color: #0f172a; }
+.day-type { font-size: 0.8rem; font-weight: 700; color: #0284c7; background: #e0f2fe; padding: 4px 10px; border-radius: 999px; }
 
 .months-grid {
   display: grid;
@@ -1190,8 +1198,8 @@ body.theme-pm .digital-clock {
 }
 
 .month-card {
-  background: rgba(255, 255, 255, 0.06);
-  border: 1px solid rgba(255, 255, 255, 0.12);
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
   padding: 14px 10px;
   border-radius: var(--radius-md);
   display: flex;
@@ -1199,19 +1207,21 @@ body.theme-pm .digital-clock {
   align-items: center;
   gap: 4px;
   cursor: pointer;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.03);
   transition: all 0.2s ease;
   text-align: center;
 }
 
 .month-card:hover {
-  background: rgba(255, 255, 255, 0.14);
+  background: #f8fafc;
+  border-color: #cbd5e1;
   transform: translateY(-2px);
 }
 
-.month-num { font-size: 0.75rem; font-weight: 700; color: var(--text-secondary); }
+.month-num { font-size: 0.75rem; font-weight: 700; color: #64748b; }
 .month-icon { font-size: 1.8rem; }
-.month-name { font-family: var(--font-heading); font-size: 1rem; color: #ffffff; }
-.month-days { font-size: 0.75rem; color: #fb923c; font-weight: 600; }
+.month-name { font-family: var(--font-heading); font-size: 1rem; color: #0f172a; }
+.month-days { font-size: 0.75rem; color: #ea580c; font-weight: 600; }
 
 .seasons-grid {
   display: grid;
@@ -1220,8 +1230,8 @@ body.theme-pm .digital-clock {
 }
 
 .season-card {
-  background: rgba(255, 255, 255, 0.06);
-  border: 1px solid rgba(255, 255, 255, 0.12);
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
   padding: 16px;
   border-radius: var(--radius-md);
   display: flex;
@@ -1229,18 +1239,20 @@ body.theme-pm .digital-clock {
   align-items: center;
   gap: 6px;
   cursor: pointer;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.03);
   transition: all 0.2s ease;
   text-align: center;
 }
 
 .season-card:hover {
-  background: rgba(255, 255, 255, 0.14);
+  background: #f8fafc;
+  border-color: #cbd5e1;
   transform: translateY(-2px);
 }
 
 .season-icon { font-size: 2.4rem; }
-.season-name { font-family: var(--font-heading); font-size: 1.25rem; color: #ffffff; }
-.season-climate { font-size: 0.85rem; color: #4ade80; font-weight: 600; }
-.season-months { font-size: 0.75rem; color: var(--text-secondary); }
+.season-name { font-family: var(--font-heading); font-size: 1.25rem; color: #0f172a; }
+.season-climate { font-size: 0.85rem; color: #16a34a; font-weight: 600; }
+.season-months { font-size: 0.75rem; color: #64748b; }
 
 
