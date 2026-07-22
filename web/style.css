@@ -925,6 +925,17 @@ body.theme-pm .digital-clock {
   line-height: 1.5;
 }
 
+/* Portal Navigation Bar (Directly below Hero Box) */
+.portal-nav-bar {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+  padding: 12px 20px;
+  width: 100%;
+}
+
 /* Portal Modules Grid */
 .portal-grid {
   display: grid;
