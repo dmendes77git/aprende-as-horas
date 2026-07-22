@@ -113,7 +113,7 @@ class ProfilesEngine {
     if (!modal) {
       modal = document.createElement('div');
       modal.id = 'onboardingModal';
-      modal.className = 'modal-backdrop';
+      modal.className = 'modal-overlay';
       document.body.appendChild(modal);
     }
 
@@ -144,7 +144,7 @@ class ProfilesEngine {
             <input type="text" id="childNameInput" class="child-name-input" placeholder="Escreve o teu nome aqui (ex: Maria, João)..." maxlength="20" autofocus />
           </div>
 
-          <button id="submitOnboardingBtn" class="btn-primary width-full">
+          <button id="submitOnboardingBtn" class="btn-onboarding-submit">
             ✨ Começar a Jogar!
           </button>
         </div>
@@ -192,7 +192,7 @@ class ProfilesEngine {
     if (!modal) {
       modal = document.createElement('div');
       modal.id = 'profileSwitcherModal';
-      modal.className = 'modal-backdrop hidden';
+      modal.className = 'modal-overlay hidden';
       document.body.appendChild(modal);
     }
 
@@ -264,7 +264,7 @@ class ProfilesEngine {
     if (!modal) {
       modal = document.createElement('div');
       modal.id = 'leaderboardModal';
-      modal.className = 'modal-backdrop hidden';
+      modal.className = 'modal-overlay hidden';
       document.body.appendChild(modal);
     }
 
