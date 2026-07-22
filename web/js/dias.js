@@ -75,10 +75,17 @@ document.addEventListener('DOMContentLoaded', () => {
   ];
 
   let currentQuestion = null;
+  let selectedChoice = null;
+  let selectedBtn = null;
+
+  const checkDiasBtn = document.getElementById('checkDiasBtn');
 
   const generateQuestion = () => {
+    selectedChoice = null;
+    selectedBtn = null;
     diasFeedback.className = 'feedback-banner';
     diasFeedback.innerHTML = '';
+    checkDiasBtn.classList.remove('hidden');
     nextDiasBtn.classList.add('hidden');
 
     currentQuestion = QUESTIONS[Math.floor(Math.random() * QUESTIONS.length)];
@@ -91,14 +98,32 @@ document.addEventListener('DOMContentLoaded', () => {
       const btn = document.createElement('button');
       btn.className = 'quiz-option-btn';
       btn.textContent = choice;
-      btn.addEventListener('click', () => handleAnswer(choice, btn));
+      btn.addEventListener('click', () => {
+        diasOptions.querySelectorAll('.quiz-option-btn').forEach(b => b.classList.remove('selected'));
+        btn.classList.add('selected');
+        selectedChoice = choice;
+        selectedBtn = btn;
+      });
       diasOptions.appendChild(btn);
     });
   };
 
+  checkDiasBtn.addEventListener('click', () => {
+    if (!selectedChoice) {
+      showFeedback('💡 Escolhe uma resposta primeiro!', 'error');
+      return;
+    }
+    handleAnswer(selectedChoice, selectedBtn);
+  });
+
   const handleAnswer = (choice, btn) => {
     const buttons = diasOptions.querySelectorAll('.quiz-option-btn');
-    buttons.forEach(b => b.disabled = true);
+    buttons.forEach(b => {
+      b.disabled = true;
+      b.classList.remove('selected');
+    });
+
+    checkDiasBtn.classList.add('hidden');
 
     if (choice === currentQuestion.correct) {
       btn.classList.add('correct');

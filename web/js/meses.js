@@ -81,10 +81,17 @@ document.addEventListener('DOMContentLoaded', () => {
   ];
 
   let currentQuestion = null;
+  let selectedChoice = null;
+  let selectedBtn = null;
+
+  const checkMesesBtn = document.getElementById('checkMesesBtn');
 
   const generateQuestion = () => {
+    selectedChoice = null;
+    selectedBtn = null;
     mesesFeedback.className = 'feedback-banner';
     mesesFeedback.innerHTML = '';
+    checkMesesBtn.classList.remove('hidden');
     nextMesesBtn.classList.add('hidden');
 
     currentQuestion = QUESTIONS[Math.floor(Math.random() * QUESTIONS.length)];
@@ -97,14 +104,32 @@ document.addEventListener('DOMContentLoaded', () => {
       const btn = document.createElement('button');
       btn.className = 'quiz-option-btn';
       btn.textContent = choice;
-      btn.addEventListener('click', () => handleAnswer(choice, btn));
+      btn.addEventListener('click', () => {
+        mesesOptions.querySelectorAll('.quiz-option-btn').forEach(b => b.classList.remove('selected'));
+        btn.classList.add('selected');
+        selectedChoice = choice;
+        selectedBtn = btn;
+      });
       mesesOptions.appendChild(btn);
     });
   };
 
+  checkMesesBtn.addEventListener('click', () => {
+    if (!selectedChoice) {
+      showFeedback('💡 Escolhe uma resposta primeiro!', 'error');
+      return;
+    }
+    handleAnswer(selectedChoice, selectedBtn);
+  });
+
   const handleAnswer = (choice, btn) => {
     const buttons = mesesOptions.querySelectorAll('.quiz-option-btn');
-    buttons.forEach(b => b.disabled = true);
+    buttons.forEach(b => {
+      b.disabled = true;
+      b.classList.remove('selected');
+    });
+
+    checkMesesBtn.classList.add('hidden');
 
     if (choice === currentQuestion.correct) {
       btn.classList.add('correct');

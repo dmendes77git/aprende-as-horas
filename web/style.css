@@ -736,6 +736,14 @@ body.theme-pm .digital-clock {
   box-shadow: 0 6px 16px rgba(0, 0, 0, 0.08);
 }
 
+.quiz-option-btn.selected {
+  background: #e0f2fe !important;
+  border-color: #0284c7 !important;
+  color: #0369a1 !important;
+  box-shadow: 0 0 0 3px rgba(2, 132, 199, 0.3) !important;
+  transform: scale(1.02);
+}
+
 .quiz-option-btn.correct {
   background: #dcfce7 !important;
   border-color: #22c55e !important;
